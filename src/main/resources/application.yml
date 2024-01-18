@@ -1,13 +1,17 @@
-# ??????
-# @author Pn
-# @from Pn
 spring:
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yuapi
+    url: jdbc:mysql://localhost:3306/news
     username: root
     password: 125800
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+mybatis-plus:
+  configuration:
+    #map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 #  mvc:
 #    pathmatch:
 #      matching-strategy: ANT_PATH_MATCHER
