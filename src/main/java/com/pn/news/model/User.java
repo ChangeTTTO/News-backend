@@ -7,17 +7,20 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 
 @TableName("user")
 public class User {
- /*   *//**
-     * 主键id
-     *//*
+
+    /**
+     * 主键ID
+      */
     @TableId(type = IdType.AUTO)
-    private Long id;*/
+    private Long id;
     /**
      * 昵称
      */
@@ -74,10 +77,11 @@ public class User {
 
     /**
      * 密码
+     * 进行脱敏处理
      */
-    /*@NotBlank(message = "密码不能为空")
-    @Length(min = 6, max = 20, message = "密码长度必须为6~20位")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)*/
+    @NotBlank(message = "密码不能为空")
+   // @Length(min = 6, max = 20, message = "密码长度必须为6~20位")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  //脱敏，不返回给前端
     private String password;
 
     /**
@@ -137,10 +141,9 @@ public class User {
 
     /**
      * 是否禁用了
-     *
      * @return
      */
-    @JsonIgnore
+    @JsonIgnore //前后端交互当作没有这个字段，数据库也不存在
     public boolean isDisable() {
         return !status;
     }

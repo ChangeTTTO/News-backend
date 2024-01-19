@@ -2,6 +2,7 @@ package com.pn.news.Controller;
 
 import com.pn.news.Mapper.UserMapper;
 import com.pn.news.model.User;
+import com.pn.news.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -17,15 +18,14 @@ public class UserController {
     UserMapper userMapper;
 
     /**
-     * 查询单个用户
+     * 通过id查询单个用户
      * @return user
      */
-    @GetMapping
-    @Operation(summary = "查询单个用户")
-    public User getUser(){
-        User user = new User();
-        user.setNickname("小明");
-        return user;
+    @GetMapping("/{id}")
+    @Operation(summary = "通过id查询单个用户")
+    public User getUser(@PathVariable("id") String id){
+
+        return userMapper.selectById(id);
     }
 
     /**
@@ -34,6 +34,7 @@ public class UserController {
      * @return user
      */
     @PostMapping("/register")
+    @Operation(summary = "注册")
     public Object register(@RequestBody User user){
         return userMapper.insert(user);
     }
@@ -41,7 +42,9 @@ public class UserController {
      * 返回用户列表
      */
     @GetMapping("/list")
-    public List<User> getAllUser(){
-        return userMapper.selectList(null);
+    @Operation(summary = "查询所有用户")
+    public Object getAllUser(){
+        List<User> users = userMapper.selectList(null);
+        return R.warp(users);
     }
 }
