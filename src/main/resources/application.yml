@@ -1,10 +1,6 @@
 spring:
-  # DataSource Config
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/news
-    username: root
-    password: 125800
+  profiles:
+    active: dev
   jackson:
     default-property-inclusion: non_null #不返回数据为空的字段给前端
     date-format: yyyy-MM-dd->HH:mm:ss  #设置返回到前端的日期格式
@@ -56,3 +52,6 @@ mybatis-plus:
 #    id: nacos-registry
 #    address: nacos://localhost:8848
 #
+logging:
+  level:
+    root: info
