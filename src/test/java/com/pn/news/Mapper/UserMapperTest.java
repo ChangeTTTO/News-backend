@@ -1,6 +1,6 @@
 package com.pn.news.Mapper;
 
-import com.pn.news.model.User;
+import com.pn.news.model.pojo.User;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

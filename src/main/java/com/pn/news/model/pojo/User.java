@@ -1,4 +1,4 @@
-package com.pn.news.model;
+package com.pn.news.model.pojo;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class User {
     /**
      * 主键ID
       */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
     /**
      * 昵称

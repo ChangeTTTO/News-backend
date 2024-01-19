@@ -53,4 +53,10 @@ public class Response {
     public Response(Object data) {
         this.data = data;
     }
+
+
+    public Response(int status, String message) {
+        this.status=status;
+        this.message=message;
+    }
 }

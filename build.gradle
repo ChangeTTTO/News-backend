@@ -29,8 +29,10 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //Mybatis-Plus
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.5'
+    //knife4j
     implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
-
+    //hutool工具包
+    implementation 'cn.hutool:hutool-all:5.8.16'
 
 
 }
