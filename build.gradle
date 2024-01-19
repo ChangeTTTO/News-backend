@@ -35,6 +35,8 @@ dependencies {
     implementation 'cn.hutool:hutool-all:5.8.16'
     // slf4j
     implementation 'org.slf4j:slf4j-api:2.0.9'
+    //validation参数校验工具
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.1'
 
 
 }

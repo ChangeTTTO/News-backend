@@ -9,7 +9,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 
@@ -24,8 +26,8 @@ public class User {
     /**
      * 昵称
      */
-   /* @NotBlank(message = "昵称不能为空")
-    @Length(min = 1, max = 15, message = "昵称长度必须为1~15位")*/
+    @NotBlank(message = "昵称不能为空")
+    @Length(min = 1, max = 15, message = "昵称长度必须为1~15位")
     private String nickname;
 
     /**
@@ -64,15 +66,15 @@ public class User {
      * 电信：133 149 153 173 177 180 181 189 199
      * 虚拟运营商: 170
      */
-    /*@NotBlank(message = "手机号不能为空")
-    @Pattern(regexp = "^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$", message = "手机号格式不正确")*/
+    @NotBlank(message = "手机号不能为空")
+    @Pattern(regexp = "^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$", message = "手机号格式不正确")
     private String phone;
 
     /**
      * 邮箱
      */
-   /* @NotBlank(message = "邮箱不能为空")
-    @Pattern(regexp = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", message = "邮箱格式不正确")*/
+    @NotBlank(message = "邮箱不能为空")
+    @Pattern(regexp = "[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?", message = "邮箱格式不正确")
     private String email;
 
     /**
@@ -80,7 +82,7 @@ public class User {
      * 进行脱敏处理
      */
     @NotBlank(message = "密码不能为空")
-   // @Length(min = 6, max = 20, message = "密码长度必须为6~20位")
+    @Length(min = 6, max = 20, message = "密码长度必须为6~20位")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)  //脱敏，不返回给前端
     private String password;
 

@@ -8,28 +8,7 @@ import lombok.NoArgsConstructor;
  * 单例化
  */
 public class ArgumentException extends CommonException {
-    /**
-     * 状态码
-     */
-    private int status;
 
-    /**
-     * 消息
-     */
-    private String message;
-    /**
-     * 扩展状态码
-     * <p>
-     * 例如：第三方服务出错后，具体的错误码
-     */
-    private String extraStatus;
-
-    /**
-     * 扩展消息
-     * <p>
-     * 例如：第三方服务出错后，具体的错误消息
-     */
-    private String extraMessage;
 
     // 单例实例
     private static ArgumentException INSTANCE;

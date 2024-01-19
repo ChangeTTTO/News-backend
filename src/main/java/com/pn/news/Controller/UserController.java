@@ -11,6 +11,8 @@ import com.pn.news.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,9 +42,9 @@ public class UserController {
      */
     @PostMapping("/register")
     @Operation(summary = "注册")
-    public Object register(@RequestBody User user){
+    public Object register(@Valid @RequestBody User user, BindingResult bindingResult){
         //判断参数是否完整
-        if (StrUtil.hasBlank(user.getNickname(),user.getPhone(),user.getEmail(),user.getPassword())){
+        if (bindingResult.hasErrors()){
             throw ArgumentException.getInstance();
         }
         //判断参数是否已存在于数据库中

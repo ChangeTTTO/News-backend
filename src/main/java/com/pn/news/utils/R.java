@@ -19,8 +19,6 @@ import java.util.List;
 public class R {
     /**
      * 只返回一个id
-     * @param id
-     * @return
      */
 
     public static Object warp(String id){
@@ -39,14 +37,14 @@ public static Object warp(Object data){
 
     /**
      * 失败
-     * @param status
-     * @param message
-     * @return
      */
     public static Response failed(int status,String message) {
             return new Response(status,message);
     }
 
+    /**
+     *通用异常处理
+     */
     public static Response failed(CommonException e) {
         Response res = R.failed(e.getStatus(), e.getMessage());
         res.setExtraStatus(e.getExtraStatus());
@@ -54,7 +52,11 @@ public static Object warp(Object data){
         return res;
     }
 
+    /**
+     * 全局异常处理返回
+     */
     public static Response failed() {
         return new Response(Constant.ERROR_UNKNOWN,Constant.ERROR_UNKNOWN_MESSAGE);
     }
+    
 }
