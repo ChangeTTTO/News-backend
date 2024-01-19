@@ -2,6 +2,8 @@ package com.pn.news.Controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.pn.news.Exception.ArgumentException;
+import com.pn.news.Exception.CommonException;
 import com.pn.news.Mapper.UserMapper;
 import com.pn.news.model.pojo.User;
 import com.pn.news.utils.Constant;
@@ -22,32 +24,32 @@ public class UserController {
 
     /**
      * 通过id查询单个用户
-     * @return user
      */
     @GetMapping("/{id}")
     @Operation(summary = "通过id查询单个用户")
     public User getUser(@PathVariable("id") String id){
-
-        return userMapper.selectById(id);
+        User user = userMapper.selectById(id);
+        if (user==null){
+            throw new RuntimeException();
+        }
+        return user;
     }
 
     /**
      * 注册
-     * @param user
-     * @return user
      */
     @PostMapping("/register")
     @Operation(summary = "注册")
     public Object register(@RequestBody User user){
         //判断参数是否完整
         if (StrUtil.hasBlank(user.getNickname(),user.getPhone(),user.getEmail(),user.getPassword())){
-            return R.failed(Constant.ERROR_ARGUMENT,Constant.ERROR_ARGUMENT_MESSAGE);
+            throw ArgumentException.getInstance();
         }
         //判断参数是否已存在于数据库中
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getPhone,user.getPhone()).or().eq(User::getEmail,user.getEmail());
         if (userMapper.exists(queryWrapper)){
-            return R.failed(Constant.ERROR_DATA_EXIST,Constant.ERROR_DATA_EXIST_MESSAGE);
+            throw CommonException.getInstance(Constant.ERROR_DATA_EXIST,Constant.ERROR_DATA_EXIST_MESSAGE);
         }
         userMapper.insert(user);
         //返回用户id

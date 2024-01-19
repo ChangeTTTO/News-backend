@@ -11,6 +11,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Response {
     /**
      * 真实数据

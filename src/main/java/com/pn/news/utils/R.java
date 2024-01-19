@@ -2,6 +2,7 @@ package com.pn.news.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pn.news.Exception.CommonException;
 import com.pn.news.model.response.ID;
 import com.pn.news.model.response.PageResponse;
 import com.pn.news.model.response.Response;
@@ -42,7 +43,18 @@ public static Object warp(Object data){
      * @param message
      * @return
      */
-    public static Object failed(int status,String message) {
+    public static Response failed(int status,String message) {
             return new Response(status,message);
+    }
+
+    public static Response failed(CommonException e) {
+        Response res = R.failed(e.getStatus(), e.getMessage());
+        res.setExtraStatus(e.getExtraStatus());
+        res.setExtraMessage(e.getExtraMessage());
+        return res;
+    }
+
+    public static Response failed() {
+        return new Response(Constant.ERROR_UNKNOWN,Constant.ERROR_UNKNOWN_MESSAGE);
     }
 }
