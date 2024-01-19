@@ -18,5 +18,9 @@ public class Constant {
      */
     public static final int ERROR_DATA_EXIST = 1550;
     public static final String ERROR_DATA_EXIST_MESSAGE = "数据已经存在";
-
+    /**
+     * 默认编码
+     */
+    public static final String CHARSET = "UTF-8";
+    public static final String SALT ="PN";
 }

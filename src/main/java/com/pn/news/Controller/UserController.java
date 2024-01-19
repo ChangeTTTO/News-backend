@@ -8,6 +8,7 @@ import com.pn.news.Mapper.UserMapper;
 import com.pn.news.model.pojo.User;
 import com.pn.news.utils.Constant;
 import com.pn.news.utils.R;
+import com.pn.news.utils.RSAUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -53,6 +54,7 @@ public class UserController {
         if (userMapper.exists(queryWrapper)){
             throw CommonException.getInstance(Constant.ERROR_DATA_EXIST,Constant.ERROR_DATA_EXIST_MESSAGE);
         }
+        user.setPassword(RSAUtil.encrypt(user.getPassword()));
         userMapper.insert(user);
         //返回用户id
         return R.warp(user.getId());
