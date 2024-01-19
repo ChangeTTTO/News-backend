@@ -5,9 +5,13 @@ spring:
     url: jdbc:mysql://localhost:3306/news
     username: root
     password: 125800
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
+  jackson:
+    default-property-inclusion: non_null #不返回数据为空的字段给前端
+    date-format: yyyy-MM-dd->HH:mm:ss  #设置返回到前端的日期格式
+    time-zone: UTC  #时区
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ANT_PATH_MATCHER
 mybatis-plus:
   configuration:
     #map-underscore-to-camel-case: false
