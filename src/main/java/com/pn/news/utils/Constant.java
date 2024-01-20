@@ -23,4 +23,19 @@ public class Constant {
      */
     public static final String CHARSET = "UTF-8";
     public static final String SALT ="PN";
+
+    /**
+     * android
+     */
+    public static final int ANDROID = 0;
+
+    /**
+     * ios
+     */
+    public static final int IOS = 10;
+
+    /**
+     * web
+     */
+    public static final int WEB = 20;
 }

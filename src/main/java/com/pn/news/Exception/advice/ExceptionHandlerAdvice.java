@@ -26,9 +26,9 @@ public class ExceptionHandlerAdvice {
     /**
      * 全局异常处理器
      */
-    @ExceptionHandler(value = Exception.class)
+  /*  @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Response defaultHandleException(Exception e) {
         return R.failed();
-    }
+    }*/
 }

@@ -37,7 +37,8 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.9'
     //validation参数校验工具
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.2.1'
-
+    // Sa-Token 权限认证，在线文档：https://sa-token.cc
+    implementation 'cn.dev33:sa-token-spring-boot3-starter:1.37.0'
 
 }
 

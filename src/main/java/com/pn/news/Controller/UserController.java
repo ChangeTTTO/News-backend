@@ -1,10 +1,14 @@
 package com.pn.news.Controller;
 
+import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.pn.news.Exception.ArgumentException;
 import com.pn.news.Exception.CommonException;
 import com.pn.news.Mapper.UserMapper;
+import com.pn.news.Service.UserService;
 import com.pn.news.model.pojo.User;
 import com.pn.news.utils.Constant;
 import com.pn.news.utils.R;
@@ -16,6 +20,7 @@ import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,6 +29,8 @@ import java.util.List;
 public class UserController {
     @Resource
     UserMapper userMapper;
+    @Resource
+    UserService userService;
 
     /**
      * 通过id查询单个用户
@@ -44,6 +51,7 @@ public class UserController {
     @PostMapping("/register")
     @Operation(summary = "注册")
     public Object register(@Valid @RequestBody User user, BindingResult bindingResult){
+        RSA rsa = new RSA();
         //判断参数是否完整
         if (bindingResult.hasErrors()){
             throw ArgumentException.getInstance();
@@ -54,7 +62,7 @@ public class UserController {
         if (userMapper.exists(queryWrapper)){
             throw CommonException.getInstance(Constant.ERROR_DATA_EXIST,Constant.ERROR_DATA_EXIST_MESSAGE);
         }
-        user.setPassword(RSAUtil.encrypt(user.getPassword()));
+        user.setPassword(RSAUtil.getInstance().rsa.encryptHex(user.getPassword(),KeyType.PublicKey));
         userMapper.insert(user);
         //返回用户id
         return R.warp(user.getId());
@@ -68,4 +76,18 @@ public class UserController {
         List<User> users = userMapper.selectList(null);
         return R.warp(users);
     }
+    /**
+    *登录
+    */
+    @PostMapping("/login")
+    public Object login(@RequestBody User user){
+        if (user.getPlatform()!=Constant.ANDROID &&
+        user.getPlatform()!=Constant.IOS &&
+        user.getPlatform()!=Constant.WEB
+    ){
+        throw ArgumentException.getInstance();
+        }
+        return R.warp(userService.login(user));
+    }
+
 }

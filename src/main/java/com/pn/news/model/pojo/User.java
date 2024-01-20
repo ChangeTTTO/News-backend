@@ -125,7 +125,7 @@ public class User {
      * 取值constant中的平台
      */
     @TableField(exist = false)
-    private byte platform;
+    private int platform;
 
     /**
      * 验证码

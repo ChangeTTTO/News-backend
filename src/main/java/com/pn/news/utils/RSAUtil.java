@@ -5,18 +5,31 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Arrays;
 
 /**
  * md5工具类
  */
+import java.util.Arrays;
+
 public class RSAUtil {
-    public static String encrypt(String data) {
-        RSA rsa = SecureUtil.rsa();
-        rsa.getPublicKey();
-        rsa.getPrivateKey();
-        //使用公钥进行加密
-        return Arrays.toString(rsa.encrypt(data + Constant.SALT, CharsetUtil.CHARSET_UTF_8, KeyType.PublicKey));
+    private static RSAUtil instance;
+    public RSA rsa;
+    private RSAUtil() {
+        // 私有构造函数，防止外部实例化
+        rsa = new RSA();
+
     }
+    public static synchronized RSAUtil getInstance() {
+        // 使用懒汉式实例化，确保只有在需要时才创建实例
+        if (instance == null) {
+            instance = new RSAUtil();
+        }
+        return instance;
+    }
+
 }
+
 
