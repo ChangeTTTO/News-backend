@@ -1,6 +1,7 @@
 package com.pn.news.Mapper;
 
 import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
@@ -19,9 +20,8 @@ public class UserMapperTest {
     @Test
             public void s(){
 
-        String s = RSAUtil.getInstance().rsa.encryptHex("陶纪禄", CharsetUtil.CHARSET_UTF_8, KeyType.PublicKey);
-        System.out.println("加密后等于："+s);
-        /*RSAUtil.getInstance().rsa.decryptStr("陶ji")*/
+        String Code = Arrays.toString(NumberUtil.generateRandomNumber(100000, 999999, 1));
+        System.out.println("生成的验证码是:"+Code);
 
     }
 }

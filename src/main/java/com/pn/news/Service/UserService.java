@@ -46,4 +46,7 @@ public class UserService {
         StpUtil.login(one.getId(),String.valueOf(user.getPlatform()));
         return new loginResponse(one.getId(),StpUtil.getTokenValue());
     }
+    public int update(String id,User user){
+            return userMapper.updateById(user);
+    }
 }

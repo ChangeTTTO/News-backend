@@ -99,5 +99,9 @@ public class UserController {
         StpUtil.logout(StpUtil.getLoginIdAsString(),id);
         return R.warp();
     }
-
+    @PatchMapping("/{id}")
+    public Object update(@PathVariable String id,@RequestBody User user){
+         StpUtil.checkLogin();
+         return R.warp(userService.update(id,user));
+    }
 }
