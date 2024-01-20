@@ -1,5 +1,6 @@
 package com.pn.news.Controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
@@ -88,6 +89,15 @@ public class UserController {
         throw ArgumentException.getInstance();
         }
         return R.warp(userService.login(user));
+    }
+    /**
+    *退出登录
+    */
+    @DeleteMapping("/{platform}")
+    public Object outLogin(@PathVariable String id){
+        StpUtil.checkLogin();
+        StpUtil.logout(StpUtil.getLoginIdAsString(),id);
+        return R.warp();
     }
 
 }

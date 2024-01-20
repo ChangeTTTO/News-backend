@@ -58,5 +58,8 @@ public static Object warp(Object data){
     public static Response failed() {
         return new Response(Constant.ERROR_UNKNOWN,Constant.ERROR_UNKNOWN_MESSAGE);
     }
-    
+
+    public static Object warp() {
+        return new Response();
+    }
 }
