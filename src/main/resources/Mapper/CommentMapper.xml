@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"  >
+<mapper namespace="com.pn.news.Mapper.CommentMapper">
+    <select id="findAll" resultType="com.pn.news.model.pojo.Comment">
+        select
+        c.id,
+        c.content,
+        c.media,
+        c.comments_count,
+        c.likes_count,
+        c.created_at,
+        c.updated_at,
+
+        u.id as "user.id",
+        u.nickname as "user.nickname",
+        u.icon as "user.icon"
+
+        from comment as c
+        inner join user u on c.user_id = u.id
+
+        <!--where标签的好处是
+        如果map为空
+        生成的sql他不会有where-->
+        <where>
+            <foreach collection="conditions.entrySet()" index="key" item="value" separator="and">
+                ${key} ${value}
+            </foreach>
+        </where>
+
+        order by ${orderField} ${order}
+    </select>
+</mapper>

@@ -1,6 +1,8 @@
 package com.pn.news.Controller;
 
 import com.pn.news.Common.Result;
+import com.pn.news.Mapper.CommentMapper;
+import com.pn.news.Mapper.CommonMapper;
 import com.pn.news.Service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class ContentController {
     @Resource
     private ContentService contentService;
+    @Resource
+    private CommonMapper commonMapper;
     /**
      * 列表
      * @param last   分页使用；最后一条数据id；不传递就是最新数据
@@ -41,6 +45,7 @@ public class ContentController {
     @GetMapping("/{id}")
     @Operation(summary = "查看文章详情")
     public Result show(@PathVariable String id){
+        commonMapper.incrementCount("content",id,"clicks_count");
         return  Result.success(contentService.showDetail(id));
     }
 }
