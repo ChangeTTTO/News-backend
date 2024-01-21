@@ -14,7 +14,6 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 @Data
-
 @TableName("user")
 public class User {
 

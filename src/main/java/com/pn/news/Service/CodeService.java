@@ -32,7 +32,6 @@ public class CodeService {
         //限制发送频率，一分钟只能发一条
         stringRedisTemplate.opsForValue().set("codes:"+"limit"+":data",Code,1,TimeUnit.MINUTES );
         String redisCode = stringRedisTemplate.opsForValue().get("codes:" + target + ":data");
-
         return redisCode ;
     }
 }
