@@ -1,12 +1,17 @@
 package com.pn.news.Controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.pn.news.Common.Result;
+import com.pn.news.Exception.ArgumentException;
 import com.pn.news.Mapper.CommentMapper;
 import com.pn.news.Mapper.CommonMapper;
 import com.pn.news.Service.ContentService;
+import com.pn.news.model.pojo.Content;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -47,5 +52,26 @@ public class ContentController {
     public Result show(@PathVariable String id){
         commonMapper.incrementCount("content",id,"clicks_count");
         return  Result.success(contentService.showDetail(id));
+    }
+    /**
+     * 发布文章
+     * @param data
+     * @param bindingResult
+     */
+    @PostMapping
+    @Operation(summary = "发布文章")
+    public Object create(@Valid @RequestBody Content data, BindingResult bindingResult) {
+        StpUtil.checkLogin();
+
+        if (bindingResult.hasErrors()){
+            throw ArgumentException.getInstance();
+        }
+
+        //设置用户id
+        data.setUserId(StpUtil.getLoginIdAsString());
+
+        contentService.create(data);
+
+        return Result.success(data.getId());
     }
 }

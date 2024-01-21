@@ -27,4 +27,8 @@ public class ContentService {
         }
         return content;
     }
+
+    public void create(Content data) {
+        contentMapper.insert(data);
+    }
 }
