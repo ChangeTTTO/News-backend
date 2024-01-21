@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pn.news.Mapper.ContentMapper">
+    <resultMap autoMapping="true" id="is" type="com.pn.news.model.pojo.Content">
+        <id column="id" property="id"/>
+        <!-- 其他属性映射... -->
+        <association property="user" javaType="com.pn.news.model.pojo.User">
+            <id column="id" property="id"/>
+            <result property="nickname" column="nickname"/>
+            <result property="icon" column="icon"/>
+        </association>
+    </resultMap>
+
+    <!--列表-->
+    <select id="findAll" resultMap="BaseResultMap">
+        select content.id,
+        content.title,
+        content.content,
+        content.icon,
+        uri,
+        user_id,
+        style,
+        duration,
+        province,
+        content.comments_count,
+        content.likes_count,
+        clicks_count,
+        width,
+        height,
+        clicks_count,
+        content.created_at,
+
+        user.id as "user.id",
+        user.nickname as "user.nickname",
+        user.icon as "user.icon"
+
+        from content
+        inner join user on content.user_id = user.id
+        <where>
+            <if test="last != null and last != ''">
+                content.id &lt; #{last}
+            </if>
+
+            <if test="query != null and query != ''">
+                and content.content like '%${query}%'
+            </if>
+
+            <if test="style != null and style != ''">
+                and content.style = #{style}
+            </if>
+        </where>
+        order by content.id desc
+        limit #{size}
+
+    </select>
+    <resultMap id="BaseResultMap" type="com.pn.news.model.pojo.Content">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="icon" column="icon" jdbcType="VARCHAR"/>
+            <result property="uri" column="uri" jdbcType="VARCHAR"/>
+            <result property="style" column="style" jdbcType="INTEGER"/>
+            <result property="duration" column="duration" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="commentsCount" column="comments_count" jdbcType="INTEGER"/>
+            <result property="likesCount" column="likes_count" jdbcType="INTEGER"/>
+            <result property="clicksCount" column="clicks_count" jdbcType="INTEGER"/>
+            <result property="width" column="width" jdbcType="INTEGER"/>
+            <result property="height" column="height" jdbcType="INTEGER"/>
+            <result property="province" column="province" jdbcType="VARCHAR"/>
+            <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+            <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+</mapper>

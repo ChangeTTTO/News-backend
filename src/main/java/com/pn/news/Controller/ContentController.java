@@ -2,17 +2,17 @@ package com.pn.news.Controller;
 
 import com.pn.news.Common.Result;
 import com.pn.news.Service.ContentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 文章内容控制器
  */
 @RestController
 @RequestMapping("/content")
+@Tag(name = "文章接口")
 public class ContentController {
     @Resource
     private ContentService contentService;
@@ -25,6 +25,7 @@ public class ContentController {
      * @return
      */
     @GetMapping
+    @Operation(summary = "分页显示内容列表")
     public Object getContent(@RequestParam(required = false) String last,
                              @RequestParam(required = false, value = "user_id") String userId,
                              @RequestParam(defaultValue = "10") int size,
@@ -33,5 +34,13 @@ public class ContentController {
             size = 30;
         }
         return Result.success(contentService.getContent(null,last, userId, size, style));
+    }
+    /**
+     * 查看文章详情
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "查看文章详情")
+    public Result show(@PathVariable String id){
+        return  Result.success(contentService.showDetail(id));
     }
 }
