@@ -31,4 +31,12 @@ class RSAUtilTest {
         System.out.println(c);
         System.out.println(d);
     }
+    @Test
+    void hash(){
+        String s1 = "bac";
+        String s2 = new String("abc");
+
+        System.out.println(s1.hashCode());
+        System.out.println(s2.hashCode());
+    }
 }

@@ -1,7 +1,6 @@
 package com.pn.news.Exception;
 
 import com.pn.news.utils.Constant;
-import lombok.NoArgsConstructor;
 
 /**
  * 参数异常

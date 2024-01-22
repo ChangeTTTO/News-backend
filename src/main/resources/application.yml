@@ -7,6 +7,11 @@ spring:
     default-property-inclusion: non_null #不返回数据为空的字段给前端
     date-format: yyyy-MM-dd->HH:mm:ss  #设置返回到前端的日期格式
     time-zone: UTC  #时区
+  servlet:
+    #文件上传配置
+    multipart:
+      max-file-size: 500KB  #上传文件的最大大小
+      max-request-size: 1024KB    # 一次请求最大大小，也就是说单个是500K，一次发几个文件的话不能超过此配置
   # redis 配置
   data:
     redis:

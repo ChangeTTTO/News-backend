@@ -3,16 +3,17 @@ package com.pn.news.Controller;
 import com.pn.news.common.Result;
 import com.pn.news.Exception.ArgumentException;
 import com.pn.news.Service.FileService;
+simport io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "文件接口")
 @RestController
+@RequestMapping("/file")
+@Slf4j
 public class FileController {
     @Resource
     private FileService fileService;
@@ -24,17 +25,26 @@ public class FileController {
      */
     @PostMapping("/fileUpload")
     @ResponseBody
-    public Result create(@RequestParam("data") MultipartFile data, @RequestParam(defaultValue = "local") String flavor) {
+    @Operation(summary = "文件上传")
+    public Result fileUpload(@RequestParam("data") MultipartFile data, @RequestParam(defaultValue = "local") String flavor) {
         if (data.isEmpty()) {
             throw ArgumentException.getInstance();
         }
 
-//        log.info("file type {}",data.getContentType());
-//        log.info("file name {}",data.getOriginalFilename());
+//       log.info("file type {}",data.getContentType());
+      log.info("file name {}",data.getOriginalFilename());
 //        log.info("file size {}",data.getSize());
 
-      //  String r = service.create(data, flavor);
+        String FileName = fileService.fileUpload(data, flavor);
 
-        return Result.INSTANCE.success();
+        return Result.INSTANCE.success(FileName);
     }
+    /**
+     * 根据文件名返回文件
+     */
+    @GetMapping("/{name}")
+    public Result show(@PathVariable String name){
+        fileService.loadAsFile(name);
+    }
+
 }
