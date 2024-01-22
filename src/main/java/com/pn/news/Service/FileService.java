@@ -34,4 +34,9 @@ public class FileService {
         //返回一个文件路径
         return String.format("r/%s",targetFile);
     }
+
+    public File loadAsFile(String name) {
+        File file = new File(Constant.DIR_UPLOAD,name);
+        return file;
+    }
 }

@@ -3,12 +3,23 @@ package com.pn.news.Controller;
 import com.pn.news.common.Result;
 import com.pn.news.Exception.ArgumentException;
 import com.pn.news.Service.FileService;
-simport io.swagger.v3.oas.annotations.Operation;
+import com.pn.news.utils.Constant;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Tag(name = "文件接口")
 @RestController
@@ -43,8 +54,29 @@ public class FileController {
      * 根据文件名返回文件
      */
     @GetMapping("/{name}")
-    public Result show(@PathVariable String name){
-        fileService.loadAsFile(name);
+    @Operation(summary = "根据文件名返回文件")
+    public Object show(@PathVariable String name){
+        //创建一个文件对象
+        File file = new File(Constant.DIR_UPLOAD,name);
+        if (!file.exists()){
+            throw new RuntimeException();
+        }
+
+        String contentType =null;
+        //获取文件的绝对路径
+        Path path = Paths.get(file.getAbsolutePath());
+        //获取文件类型
+        try {
+            contentType = Files.probeContentType(path);
+        } catch (IOException e) {
+            contentType="application/octet-stream";   //二进制流
+        }
+        return ResponseEntity.ok()
+                //下载
+              //  .header(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=\""+ file.getName()+"\"")
+                //设置文件类型，浏览器能预览的文件就会直接预览
+                .contentType(MediaType.parseMediaType(contentType))
+                .body(new FileSystemResource(file));
     }
 
 }
