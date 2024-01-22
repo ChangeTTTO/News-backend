@@ -1,9 +1,8 @@
 package com.pn.news.Controller;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.pn.news.Common.Result;
+import com.pn.news.common.Result;
 import com.pn.news.Exception.ArgumentException;
-import com.pn.news.Mapper.CommentMapper;
 import com.pn.news.Mapper.CommonMapper;
 import com.pn.news.Service.ContentService;
 import com.pn.news.model.pojo.Content;
@@ -42,7 +41,7 @@ public class ContentController {
         if (size >= 30) {
             size = 30;
         }
-        return Result.success(contentService.getContent(null,last, userId, size, style));
+        return Result.INSTANCE.success(contentService.getContent(null,last, userId, size, style));
     }
     /**
      * 查看文章详情
@@ -51,7 +50,7 @@ public class ContentController {
     @Operation(summary = "查看文章详情")
     public Result show(@PathVariable String id){
         commonMapper.incrementCount("content",id,"clicks_count");
-        return  Result.success(contentService.showDetail(id));
+        return  Result.INSTANCE.success(contentService.showDetail(id));
     }
     /**
      * 发布文章
@@ -72,6 +71,6 @@ public class ContentController {
 
         contentService.create(data);
 
-        return Result.success(data.getId());
+        return Result.INSTANCE.success(data.getId());
     }
 }

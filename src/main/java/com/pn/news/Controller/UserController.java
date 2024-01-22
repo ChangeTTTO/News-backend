@@ -63,7 +63,7 @@ public class UserController {
         if (userMapper.exists(queryWrapper)){
             throw CommonException.getInstance(Constant.ERROR_DATA_EXIST,Constant.ERROR_DATA_EXIST_MESSAGE);
         }
-        user.setPassword(RSAUtil.getInstance().rsa.encryptHex(user.getPassword(),KeyType.PublicKey));
+        user.setPassword(RSAUtil.INSTANCE.getRsa().encryptHex(user.getPassword(),KeyType.PublicKey));
         userMapper.insert(user);
         //返回用户id
         return R.warp(user.getId());

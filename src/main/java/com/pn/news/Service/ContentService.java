@@ -1,6 +1,5 @@
 package com.pn.news.Service;
 
-import com.pn.news.Common.Result;
 import com.pn.news.Mapper.ContentMapper;
 import com.pn.news.Mapper.UserMapper;
 import com.pn.news.model.pojo.Content;

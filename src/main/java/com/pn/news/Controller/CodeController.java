@@ -1,18 +1,15 @@
 package com.pn.news.Controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.pn.news.Common.Result;
+import com.pn.news.common.Result;
 import com.pn.news.Exception.ArgumentException;
 import com.pn.news.Service.CodeService;
-import com.pn.news.Service.UserService;
 import com.pn.news.model.request.CodeRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.charset.CoderResult;
 
 /**
  * 验证码控制器
@@ -44,6 +41,6 @@ public class CodeController {
             }else {
                 throw  ArgumentException.getInstance();
             }
-            return Result.success(codeService.sendCode(style,target));
+            return Result.INSTANCE.success(codeService.sendCode(style,target));
 }
 }

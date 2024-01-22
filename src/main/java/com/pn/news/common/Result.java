@@ -1,4 +1,5 @@
-package com.pn.news.Common;
+/*
+package com.pn.news.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,3 +26,4 @@ public class Result {
         return new Result(0,msg,null);
     }
 }
+*/
