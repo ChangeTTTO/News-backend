@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+apply from: '../common.gradle'
+group = 'com.pn'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}

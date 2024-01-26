@@ -1,7 +1,5 @@
 package com.pn.news.utils;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pn.news.Exception.CommonException;
 import com.pn.news.model.response.ID;
 import com.pn.news.model.response.PageResponse;
