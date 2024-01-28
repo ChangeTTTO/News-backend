@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 @Tag(name = "文件接口")
 @RestController
@@ -78,31 +77,6 @@ public class FileController {
                 //设置文件类型，浏览器能预览的文件就会直接预览
                 .contentType(MediaType.parseMediaType(contentType))
                 .body(new FileSystemResource(file));
-    }
-    /**
-     * 批量上传
-     * @param files 文件对象列表
-     */
-    @PostMapping("/multiFile")
-    @ResponseBody
-    @Operation(summary = "批量上传")
-    public Object creates(@RequestParam("data") MultipartFile[] files, @RequestParam(defaultValue = "local") String flavor) {
-        if (files.length == 0) {
-            throw ArgumentException.getInstance();
-        }
-        ArrayList<String> r = new ArrayList<>();
-        for (MultipartFile it : files) {
-            if (it.isEmpty()) {
-                throw  ArgumentException.getInstance();
-            }
-            //文件上传
-            r.add(fileService.fileUpload(it, flavor));
-        }
-        if (r.size() != files.length) {
-            log.warn("upload file length error {} {}", r.size(), files.length);
-          throw new RuntimeException();
-        }
-        return Result.INSTANCE.success(r);
     }
 
 }
