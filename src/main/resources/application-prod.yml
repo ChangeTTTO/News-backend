@@ -2,20 +2,14 @@ spring:
   #数据源配置
   datasource:
     #数据库地址
-    url: jdbc:mysql://47.108.254.114:3306/news?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/news?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
 
     #用户名
-    username: pn
+    username: news
 
     #密码
-    password: 125800
-  # redis 配置
-  data:
-    redis:
-      port: 6379
-      host: 47.108.254.114
-      database: 0
-      password: 125800
+    password: FpKZPcbF85SNzRms
+
 #日志配置
 logging:
   level:

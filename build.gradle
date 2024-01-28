@@ -47,7 +47,7 @@ dependencies {
     implementation 'cn.dev33:sa-token-redis-jackson:1.37.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
-    implementation project(':remark')
+
 }
 
 tasks.named('bootBuildImage') {
